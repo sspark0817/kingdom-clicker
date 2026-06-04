@@ -154,7 +154,7 @@ const stageButtons = document.getElementById("stageButtons");
 
 const battleCard = document.querySelector(".battle-card");
 
-battleCard.addEventListener("click", function(event) {
+battleCard.addEventListener("pointerdown", function(event) {
     if (
         event.target.tagName === "BUTTON" ||
         event.target.closest(".stage-select-bottom")
