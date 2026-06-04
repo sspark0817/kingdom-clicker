@@ -1,6 +1,6 @@
 # Kingdom Clicker
 
-![Kingdom Clicker Screenshot]
+![게임 화면](screenshot.png)
 
 HTML, CSS, JavaScript를 활용하여 제작한 방치형 RPG 클리커 게임입니다.
 
