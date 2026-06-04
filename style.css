@@ -548,13 +548,32 @@ h1 {
     }
 
     .battle-card {
+        order: -1;
         min-height: auto;
-        gap: 18px;
+        gap: 14px;
+        padding: 18px;
+    }
+
+    .left-panel {
+        order: 1;
+    }
+
+    .battle-top-info {
+        padding: 10px;
     }
 
     .monster-img {
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
+    }
+
+    .monster-hp-bar {
+        width: 90%;
+        height: 20px;
+    }
+
+    .stage-select-bottom {
+        padding: 10px;
     }
 
     .ally-card {
