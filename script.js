@@ -152,7 +152,16 @@ const totalKillText = document.getElementById("totalKill");
 const attackUpgradeCostText = document.getElementById("attackUpgradeCost");
 const stageButtons = document.getElementById("stageButtons");
 
-monster.addEventListener("click", function(event) {
+const battleCard = document.querySelector(".battle-card");
+
+battleCard.addEventListener("click", function(event) {
+    if (
+        event.target.tagName === "BUTTON" ||
+        event.target.closest(".stage-select-bottom")
+    ) {
+        return;
+    }
+
     attackMonster(getAttackPower());
     showPlusText(event.clientX, event.clientY, "-" + getAttackPower());
 });
