@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Clicker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-effect"></div>
+
+<div class="game-wrap">
+
+    <header>
+        <p class="tag">Stage Monster Clicker</p>
+        <h1>Monster Clicker</h1>
+        <p class="desc">몬스터를 처치하고 더 높은 스테이지에 도전하세요.</p>
+    </header>
+
+    <div class="main-layout">
+
+        <aside class="left-panel">
+
+            <section class="status-grid">
+                <div class="status-card">
+                    <span class="gold-label">🪙 Gold</span>
+                    <strong id="gold">0</strong>
+                </div>
+
+                <div class="status-card">
+                    <span class="gem-label">💎 Gem</span>
+                    <strong id="gem">0</strong>
+                </div>
+
+                <div class="status-card">
+                    <span>DPC</span>
+                    <strong id="attackPower">1</strong>
+                </div>
+
+                <div class="status-card">
+                    <span>DPS</span>
+                    <strong id="autoDamage">0</strong>
+                </div>
+
+                <div class="status-card">
+                    <span>Highest</span>
+                    <strong id="highestStage">1</strong>
+                </div>
+
+                <div class="status-card">
+                    <span>Total Kills</span>
+                    <strong id="totalKill">0</strong>
+                </div>
+            </section>
+
+            <section class="menu-box">
+                <button onclick="buyAttackUpgrade()" class="main-btn">
+                    ⚔️ 공격력 강화<br>
+                    <span><span id="attackUpgradeCost">50</span> G</span>
+                </button>
+
+                <button onclick="openAllyModal()" class="main-btn">
+                    👥 동료 관리
+                </button>
+
+                <button onclick="openPassiveModal()" class="main-btn gem-btn">
+                    💎 패시브 상점
+                </button>
+
+                <button onclick="openAchievementModal()" class="main-btn">
+                    🏆 업적
+                </button>
+            </section>
+
+            <section class="save-box">
+                <button onclick="saveGame()">Save</button>
+                <button onclick="loadGame()">Load</button>
+                <button onclick="resetGame()" class="reset">Reset</button>
+            </section>
+
+        </aside>
+
+        <main class="battle-card">
+
+            <div class="battle-top-info">
+                <div class="level-badge">Stage <span id="stage">1</span></div>
+                <div id="stageType" class="rank">Normal Stage</div>
+
+                <div class="monster-name">
+                    <span id="monsterName">슬라임</span>
+                </div>
+            </div>
+
+            <div class="monster-area">
+                <img id="monster" class="monster-img" src="images/slime.png" alt="monster">
+
+                <div class="stage-progress">
+                    처치 수 : <span id="stageKill">0</span> / <span id="stageNeed">10</span>
+                </div>
+
+                <div id="bossTimer" class="boss-timer hidden">
+                    남은 시간 : <span id="timeLeft">30</span>초
+                </div>
+
+                <div class="monster-hp-text">
+                    HP <span id="monsterHp">30</span> / <span id="monsterMaxHp">30</span>
+                </div>
+
+                <div class="monster-hp-bar">
+                    <div id="monsterHpFill"></div>
+                </div>
+
+                <p class="tap-text">TAP TO ATTACK</p>
+            </div>
+
+            <div class="stage-select-bottom">
+                <button class="stage-toggle" onclick="toggleStageMenu()">
+                    Stage Select
+                </button>
+
+                <div id="stageButtons" class="stage-buttons"></div>
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<div id="allyModal" class="modal hidden">
+    <div class="modal-content ally-modal-content">
+        <button class="close-btn" onclick="closeAllyModal()">×</button>
+        <h2>👥 동료 관리</h2>
+        <p class="modal-desc">일부 동료는 Gem으로 구매하고, 모든 동료 업그레이드는 Gold를 사용합니다.</p>
+        <div id="allyList"></div>
+    </div>
+</div>
+
+<div id="passiveModal" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closePassiveModal()">×</button>
+        <h2>💎 패시브 상점</h2>
+        <p class="modal-desc">Gem을 사용해 영구 효과를 구매합니다.</p>
+        <div id="passiveList"></div>
+    </div>
+</div>
+
+<div id="achievementModal" class="modal hidden">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeAchievementModal()">×</button>
+        <h2>🏆 Achievements</h2>
+
+        <div class="achievement" id="achFirstKill">
+            <span>첫 몬스터 처치</span>
+            <button id="btnAchFirstKill" class="reward-btn" onclick="claimReward('achFirstKill', 1)" disabled>Gem +1</button>
+        </div>
+
+        <div class="achievement" id="achStage5">
+            <span>Stage 5 보스 클리어</span>
+            <button id="btnAchStage5" class="reward-btn" onclick="claimReward('achStage5', 3)" disabled>Gem +3</button>
+        </div>
+
+        <div class="achievement" id="achKill50">
+            <span>몬스터 50마리 처치</span>
+            <button id="btnAchKill50" class="reward-btn" onclick="claimReward('achKill50', 5)" disabled>Gem +5</button>
+        </div>
+
+        <div class="achievement" id="achStage10">
+            <span>Stage 10 보스 클리어</span>
+            <button id="btnAchStage10" class="reward-btn" onclick="claimReward('achStage10', 7)" disabled>Gem +7</button>
+        </div>
+
+        <div class="achievement" id="achStage20">
+            <span>Stage 20 도달</span>
+            <button id="btnAchStage20" class="reward-btn" onclick="claimReward('achStage20', 10)" disabled>Gem +10</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
