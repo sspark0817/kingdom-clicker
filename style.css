@@ -210,6 +210,10 @@ h1 {
     filter: drop-shadow(0 0 30px rgba(255, 80, 80, 0.75));
     animation: float 2s ease-in-out infinite;
     transition: transform 0.08s;
+
+    user select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .monster-img:active {
