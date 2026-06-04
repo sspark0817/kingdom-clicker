@@ -211,7 +211,7 @@ h1 {
     animation: float 2s ease-in-out infinite;
     transition: transform 0.08s;
 
-    user select: none;
+    user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;
 }
